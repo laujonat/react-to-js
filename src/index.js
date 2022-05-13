@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import { Test } from './components';
 import { createRoot } from 'react-dom/client';
+import { makeReactCustomElement } from './compile';
 
 import './ReactElement';
 // import './registry';
@@ -17,7 +18,21 @@ function component() {
 }
 
 const container = document.getElementById('root');
+
 const root = createRoot(container);
 root.render(Test);
 
 document.body.appendChild(component());
+
+function SomeComponent() {
+  return (
+    <div>
+      <span>food</span>
+    </div>
+  );
+}
+
+window.customElements.define(
+  'iframe-like',
+  makeReactCustomElement(SomeComponent)
+);
